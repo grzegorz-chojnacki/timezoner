@@ -14,11 +14,13 @@ export class ClockComponent implements OnInit {
 
   constructor(private api: WorldTimeApi) { }
 
+  // Set initial timezone and start clock
   ngOnInit(): void {
     this.changeTimezone(this.timezone)
     setInterval(() => {this.unixtime++}, 1000)
   }
 
+  // Change clock timezone and sync time with server
   public changeTimezone(timezone: string): void {
     this.api.getTimezoneInfo(timezone)
       .subscribe(data => {
