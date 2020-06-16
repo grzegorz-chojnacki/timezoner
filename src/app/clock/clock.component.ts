@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { WorldTimeApi } from "../../services/world-time-api.service";
+import { WorldTimeApi } from '../../services/world-time-api.service';
+import { timezoneList } from '../timezoneList'
 
 @Component({
   selector: 'app-clock',
@@ -8,16 +9,15 @@ import { WorldTimeApi } from "../../services/world-time-api.service";
 })
 
 export class ClockComponent implements OnInit {
-  timezone: string = "Europe/Warsaw"
-  offset: number
-  unixtime: number
+  timezone: string = timezoneList[0]
+  time: number
 
   constructor(private api: WorldTimeApi) { }
 
   // Set initial timezone and start clock
   ngOnInit(): void {
     this.changeTimezone(this.timezone)
-    setInterval(() => { this.unixtime++ }, 1000)
+    setInterval(() => { this.time++ }, 1000)
   }
 
   // Change clock timezone and sync time with server
@@ -25,8 +25,7 @@ export class ClockComponent implements OnInit {
     this.api.getTimezoneInfo(timezone)
       .subscribe(data => {
         this.timezone = timezone
-        this.unixtime = data['unixtime']
-        this.offset = data['raw_offset'] - data['dst_offset']
+        this.time = data['unixtime'] + data['raw_offset'] + data['dst_offset']
         console.log(data);
       })
   }
