@@ -3,10 +3,16 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { ClockComponent } from './clock/clock.component';
+import { TimezoneButtonComponent } from './timezone-button/timezone-button.component';
+import { InMilisecondsPipe } from './clock/in-miliseconds.pipe';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    ClockComponent,
+    TimezoneButtonComponent,
+    InMilisecondsPipe
   ],
   imports: [
     BrowserModule,
