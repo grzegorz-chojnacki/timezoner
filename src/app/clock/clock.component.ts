@@ -9,7 +9,7 @@ import { WorldTimeApi } from "../../services/world-time-api.service";
 
 export class ClockComponent implements OnInit {
   timezone: string = "Europe/Warsaw"
-  utc_offset: string
+  offset: number
   unixtime: number
 
   constructor(private api: WorldTimeApi) { }
@@ -17,7 +17,7 @@ export class ClockComponent implements OnInit {
   // Set initial timezone and start clock
   ngOnInit(): void {
     this.changeTimezone(this.timezone)
-    setInterval(() => {this.unixtime++}, 1000)
+    setInterval(() => { this.unixtime++ }, 1000)
   }
 
   // Change clock timezone and sync time with server
@@ -26,7 +26,8 @@ export class ClockComponent implements OnInit {
       .subscribe(data => {
         this.timezone = timezone
         this.unixtime = data['unixtime']
-        this.utc_offset = data['utc_offset']
+        this.offset = data['raw_offset'] - data['dst_offset']
+        console.log(data);
       })
   }
 }
