@@ -10,6 +10,7 @@ export class WorldTimeApi {
 
   constructor(private http: HttpClient) {}
 
+  // Get JSON with time and timezone info from url
   getTimezoneInfo(timezone: string): Observable<any> {
     return this.http.get(this.url + timezone)
   }
