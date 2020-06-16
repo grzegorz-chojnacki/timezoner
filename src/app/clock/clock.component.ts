@@ -15,14 +15,16 @@ export class ClockComponent implements OnInit {
   constructor(private api: WorldTimeApi) { }
 
   ngOnInit(): void {
-    this.update(this.timezone)
+    this.changeTimezone(this.timezone)
+    setInterval(() => {this.unixtime++}, 1000)
   }
 
-  public update(timezone: string): void {
+  public changeTimezone(timezone: string): void {
     this.api.getTimezoneInfo(timezone)
       .subscribe(data => {
-        console.log(data)
+        this.timezone = timezone
         this.unixtime = data['unixtime']
+        this.utc_offset = data['utc_offset']
       })
   }
 }
