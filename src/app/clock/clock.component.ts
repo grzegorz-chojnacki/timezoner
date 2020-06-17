@@ -10,20 +10,28 @@ import { Observable } from 'rxjs';
 })
 
 export class ClockComponent implements OnInit {
-  timezone: string = timezoneList[0]
+  timezone: string
   time: number
-  isLoading: boolean; // Loading spinner visibility flag
+  isLoading: boolean // Loading spinner visibility flag
+  longestTimezone: number
 
   constructor(private api: WorldTimeApi) { }
 
   // Set initial timezone and start clock
   ngOnInit(): void {
-    this.changeTimezone(this.timezone)
+    this.changeTimezone(timezoneList[0])
+    this.longestTimezone = timezoneList
+      .map(timezone => timezone.length)
+      .reduce((acc, length) => length > acc ? length : acc)
+
     setInterval(() => { this.time++ }, 1000)
   }
 
   // Change clock timezone and sync time with server
   public changeTimezone(timezone: string): void {
+    // No need to fetch data for current timezone
+    if (this.timezone == timezone) return
+
     this.isLoading = true
     this.api.getTimezoneInfo(timezone)
       .subscribe(
