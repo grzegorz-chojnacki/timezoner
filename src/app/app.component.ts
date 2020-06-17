@@ -8,6 +8,5 @@ import { timezoneList } from './timezoneList'
 })
 
 export class AppComponent {
-  title = 'timezoner'
   timezones = timezoneList
 }
