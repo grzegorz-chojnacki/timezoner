@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { WorldTimeApi } from '../../services/world-time-api.service';
 import { timezoneList } from '../timezoneList'
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-clock',
@@ -23,10 +24,17 @@ export class ClockComponent implements OnInit {
   // Change clock timezone and sync time with server
   public changeTimezone(timezone: string): void {
     this.api.getTimezoneInfo(timezone)
-      .subscribe(data => {
-        this.timezone = timezone
-        this.time = data['unixtime'] + data['raw_offset'] + data['dst_offset']
-        console.log(data);
-      })
+      .subscribe(
+        data => {
+          this.time = this.getTime(data)
+          this.timezone = timezone
+        },
+        error => console.error(error)
+      )
+  }
+
+  // Get the unixtime offseted by timezones and DST
+  getTime(data: Observable<any>): number {
+    return data['unixtime'] + data['raw_offset'] + data['dst_offset']
   }
 }
