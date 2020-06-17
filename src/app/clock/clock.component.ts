@@ -12,6 +12,7 @@ import { Observable } from 'rxjs';
 export class ClockComponent implements OnInit {
   timezone: string = timezoneList[0]
   time: number
+  isLoading: boolean; // Loading spinner visibility flag
 
   constructor(private api: WorldTimeApi) { }
 
@@ -23,11 +24,13 @@ export class ClockComponent implements OnInit {
 
   // Change clock timezone and sync time with server
   public changeTimezone(timezone: string): void {
+    this.isLoading = true
     this.api.getTimezoneInfo(timezone)
       .subscribe(
         data => {
           this.time = this.getTime(data)
           this.timezone = timezone
+          this.isLoading = false
         },
         error => console.error(error)
       )
