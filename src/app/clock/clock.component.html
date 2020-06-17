@@ -1,2 +1,5 @@
-<p>The time in <span>{{timezone}}</span> is:</p>
-<p>{{time | inMiliseconds | date:'HH:mm:ss':'+0000'}}</p>
+<p>The time in <span class="text-primary">{{timezone}}</span> is:</p>
+<h1 class="font-weight-bold text-monospace">{{time | inMiliseconds | date:'HH:mm:ss':'+0000'}}</h1>
+<div [ngClass]="isLoading ? 'visible' : 'invisible'" class="spinner-border text-primary p-2" role="status">
+  <span class="sr-only">Loading...</span>
+</div>

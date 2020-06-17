@@ -1,5 +1,10 @@
-<h1>{{ title }}</h1>
-<app-timezone-button *ngFor="let timezone of timezones" [timezone]="timezone"
-  [clock]="clock">
-</app-timezone-button>
-<app-clock #clock></app-clock>
+<h1 class="font-weigth-bold"><span class="text-primary">#</span>timezoner</h1>
+<div class="m-1 align-middle">
+  <app-clock #clock></app-clock>
+</div>
+<h3>Choose a timezone:</h3>
+<div class="d-flex flex-row justify-content-center flex-wrap">
+  <app-timezone-button *ngFor="let timezone of timezones" [timezone]="timezone"
+    [clock]="clock">
+  </app-timezone-button>
+</div>
