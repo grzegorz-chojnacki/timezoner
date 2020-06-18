@@ -13,14 +13,15 @@ export class ClockComponent implements OnInit {
   timezone: string
   time: number
   isLoading: boolean // Loading spinner visibility flag
-  longestTimezone: number
+  longestTimezoneLength: number
+  initialTimezone = timezoneList[0]
 
   constructor(private api: WorldTimeApi) { }
 
   // Set initial timezone and start clock
   ngOnInit(): void {
-    this.changeTimezone(timezoneList[0])
-    this.longestTimezone = timezoneList
+    this.changeTimezone(this.initialTimezone)
+    this.longestTimezoneLength = timezoneList
       .map(timezone => timezone.length)
       .reduce((acc, length) => length > acc ? length : acc)
 
@@ -39,9 +40,7 @@ export class ClockComponent implements OnInit {
           this.time = this.getTime(data)
           this.timezone = timezone
           this.isLoading = false
-        },
-        error => console.error(error)
-      )
+        })
   }
 
   // Get the unixtime offseted by timezones and DST
