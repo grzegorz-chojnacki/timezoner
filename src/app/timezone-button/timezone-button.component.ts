@@ -7,8 +7,8 @@ import { ClockComponent } from '../clock/clock.component';
   styleUrls: ['./timezone-button.component.css']
 })
 export class TimezoneButtonComponent implements OnInit {
-  @Input() timezone: string
-  @Input() clock: ClockComponent
+  @Input() timezone: string;
+  @Input() clock: ClockComponent;
 
   constructor() { }
 
@@ -16,7 +16,7 @@ export class TimezoneButtonComponent implements OnInit {
   }
 
   setTimezone(): void {
-    this.clock.changeTimezone(this.timezone)
+    this.clock.changeTimezone(this.timezone);
   }
 
 }

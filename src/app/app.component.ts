@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { timezoneList } from './timezoneList'
+import { timezoneList } from './timezoneList';
 
 @Component({
   selector: 'app-root',
@@ -8,5 +8,5 @@ import { timezoneList } from './timezoneList'
 })
 
 export class AppComponent {
-  timezones = timezoneList
+  timezones = timezoneList;
 }
